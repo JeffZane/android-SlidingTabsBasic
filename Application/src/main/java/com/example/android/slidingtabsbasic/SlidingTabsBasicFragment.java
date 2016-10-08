@@ -19,6 +19,7 @@ package com.example.android.slidingtabsbasic;
 import com.example.android.common.logger.Log;
 import com.example.android.common.view.SlidingTabLayout;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
@@ -81,6 +82,26 @@ public class SlidingTabsBasicFragment extends Fragment {
         // it's PagerAdapter set.
         mSlidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setViewPager(mViewPager);
+        mSlidingTabLayout.setDividerColors(Color.TRANSPARENT);
+        mSlidingTabLayout.setSelectedIndicatorColors(Color.parseColor("#2196F3"));
+        mSlidingTabLayout.setBottomBorderColor(Color.parseColor("#e5e5e5"));
+
+        mSlidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         // END_INCLUDE (setup_slidingtablayout)
     }
     // END_INCLUDE (fragment_onviewcreated)
@@ -120,6 +141,9 @@ public class SlidingTabsBasicFragment extends Fragment {
          */
         @Override
         public CharSequence getPageTitle(int position) {
+            if (position % 2 == 0) {
+                return "Item application " + (position + 1);
+            }
             return "Item " + (position + 1);
         }
         // END_INCLUDE (pageradapter_getpagetitle)

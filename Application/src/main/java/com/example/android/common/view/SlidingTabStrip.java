@@ -28,9 +28,9 @@ import android.widget.LinearLayout;
 
 class SlidingTabStrip extends LinearLayout {
 
-    private static final int DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 2;
+    private static final int DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 1; //底部水平分隔线
     private static final byte DEFAULT_BOTTOM_BORDER_COLOR_ALPHA = 0x26;
-    private static final int SELECTED_INDICATOR_THICKNESS_DIPS = 8;
+    private static final int SELECTED_INDICATOR_THICKNESS_DIPS = 3; //选中item的水平分隔线
     private static final int DEFAULT_SELECTED_INDICATOR_COLOR = 0xFF33B5E5;
 
     private static final int DEFAULT_DIVIDER_THICKNESS_DIPS = 1;
@@ -43,7 +43,7 @@ class SlidingTabStrip extends LinearLayout {
     private final int mSelectedIndicatorThickness;
     private final Paint mSelectedIndicatorPaint;
 
-    private final int mDefaultBottomBorderColor;
+    private int mDefaultBottomBorderColor;
 
     private final Paint mDividerPaint;
     private final float mDividerHeight;
@@ -92,6 +92,12 @@ class SlidingTabStrip extends LinearLayout {
         mCustomTabColorizer = customTabColorizer;
         invalidate();
     }
+
+    // =>set bottom border color
+    void setBottomBorderColor(int color) {
+        mDefaultBottomBorderColor = color;
+    }
+    // <=set bottom border color
 
     void setSelectedIndicatorColors(int... colors) {
         // Make sure that the custom colorizer is removed

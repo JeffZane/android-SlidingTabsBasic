@@ -19,6 +19,7 @@ package com.example.android.common.view;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -28,6 +29,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
+
+import com.example.android.slidingtabsbasic.R;
 
 /**
  * To be used with ViewPager to provide a tab indicator component which give constant feedback as to
@@ -111,6 +114,12 @@ public class SlidingTabLayout extends HorizontalScrollView {
     public void setCustomTabColorizer(TabColorizer tabColorizer) {
         mTabStrip.setCustomTabColorizer(tabColorizer);
     }
+
+    // =>set bottom border color
+    public void setBottomBorderColor(int color) {
+        mTabStrip.setBottomBorderColor(color);
+    }
+    // <=set bottom border color
 
     /**
      * Sets the colors to be used for indicating the selected tab. These colors are treated as a
@@ -218,9 +227,14 @@ public class SlidingTabLayout extends HorizontalScrollView {
             }
 
             tabTitleView.setText(adapter.getPageTitle(i));
+            tabTitleView.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.pager_tab_title_color));
             tabView.setOnClickListener(tabClickListener);
 
             mTabStrip.addView(tabView);
+
+            if (i == mViewPager.getCurrentItem()) {
+                tabView.setSelected(true);
+            }
         }
     }
 
@@ -291,7 +305,9 @@ public class SlidingTabLayout extends HorizontalScrollView {
                 mTabStrip.onViewPagerPageChanged(position, 0f);
                 scrollToTab(position, 0);
             }
-
+            for (int i = 0; i < mTabStrip.getChildCount(); i++) {
+                mTabStrip.getChildAt(i).setSelected(position == i);
+            }
             if (mViewPagerPageChangeListener != null) {
                 mViewPagerPageChangeListener.onPageSelected(position);
             }
